@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { AppRegistry } from 'react-native';
+import Button from '@ant-design/react-native/lib/button';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+      <Button>Start</Button>
   );
 }
 
