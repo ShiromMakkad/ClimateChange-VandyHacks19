@@ -1,0 +1,7 @@
+{
+  "presets": ["babel-preset-expo"],
+  "plugins": [["import", { "libraryName": "antd-mobile-rn" }]],
+  "env": {
+    ...
+  }
+}
