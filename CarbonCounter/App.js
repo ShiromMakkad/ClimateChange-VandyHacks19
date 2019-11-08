@@ -33,17 +33,6 @@ class App extends React.Component {
     }
 }
 
-class LogoTitle extends React.Component {
-    render() {
-        return (
-            <Image
-                style={{width: 50, height: 50}}
-                source={require('./assets/icon.png')}
-            />
-        );
-    }
-}
-
 const AppNavigator = createStackNavigator({
     Home: {
         screen: App,
