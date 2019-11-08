@@ -1,19 +1,53 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { AppRegistry } from 'react-native';
-import Button from '@ant-design/react-native/lib/button';
+import { View, Text, Image, Platform, StatusBar } from 'react-native';
+import { Button } from '@ant-design/react-native';
+import { createAppContainer, SafeAreaView } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-export default function App() {
-  return (
-      <Button>Start</Button>
-  );
+if (Platform.OS === 'android') {
+    SafeAreaView.setStatusBarHeight(0);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+class App extends React.Component {
+    static navigationOptions = {
+        title: "Carbon Counter",
+        headerTitle:(<View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center', padding: 5}}><Image style={{width: 50, height: 50}} source={require('./assets/icon.png')}/><Text style={{alignSelf: 'center', color: 'white', fontWeight: '500', fontSize: 22}}>   Carbon Counter</Text></View>),
+        headerStyle: {
+            backgroundColor: '#0B7310',
+            height: 85
+        },
+        headerTitleStyle: {
+            color: 'white',
+            fontWeight: '500',
+            flex: 1
+        }
+    };
+
+    render() {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <StatusBar barStyle="light-content" />
+                <Button type="primary">Test</Button>
+            </View>
+        );
+    }
+}
+
+class LogoTitle extends React.Component {
+    render() {
+        return (
+            <Image
+                style={{width: 50, height: 50}}
+                source={require('./assets/icon.png')}
+            />
+        );
+    }
+}
+
+const AppNavigator = createStackNavigator({
+    Home: {
+        screen: App,
+    },
+}, {headerLayoutPreset: 'center'});
+
+export default createAppContainer(AppNavigator);

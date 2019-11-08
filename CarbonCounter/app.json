@@ -4,6 +4,10 @@
     "slug": "CarbonCounter",
     "privacy": "public",
     "sdkVersion": "35.0.0",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#0B7310"
+    },
     "platforms": [
       "ios",
       "android",
