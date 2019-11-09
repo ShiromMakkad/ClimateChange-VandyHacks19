@@ -9,11 +9,8 @@ Your antivirus will block the server. Make sure to add firewall exceptions to po
 Just follow - https://docs.expo.io/versions/latest/get-started/installation/
 When it asks you whether to use yarn, say no. Make sure you're using npm. 
 
-## Ant Design
-This is a pain in the ass
-1. Install react native CLI - https://facebook.github.io/react-native/docs/getting-started. Follow the expo instructions
-2. We need to install the mobile rn version. Go to https://rn.mobile.ant.design/docs/react/introduce
-3. Use the npm commands to install ant design. 
+## React Native Elements
+Just follow the expo instructions - https://react-native-elements.github.io/react-native-elements/docs/getting_started.html
 
 ## React Navigation
 Just follow https://reactnavigation.org/docs/en/getting-started.html. Use the expo instructions
