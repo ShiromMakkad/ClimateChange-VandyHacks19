@@ -1,14 +1,18 @@
 import React from 'react';
-import {View, Platform, StatusBar, ScrollView } from 'react-native';
-import {Button, Text, Image, ThemeProvider, Slider, Card, Icon } from 'react-native-elements';
-import {createAppContainer, SafeAreaView} from 'react-navigation';
+import {StatusBar, ScrollView, Platform } from 'react-native';
+import {Button, Text, ThemeProvider, Card, Icon } from 'react-native-elements';
+import {createAppContainer, SafeAreaView } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import { StackViewStyleInterpolator } from 'react-navigation-stack'
+import Navigation from "./App/components/Navigation";
+import Home from "./App/Home";
+import Questions from "./App/Questions";
 
 if (Platform.OS === 'android') {
     SafeAreaView.setStatusBarHeight(0);
 }
 
-const theme = {
+global.theme = {
     colors: {
         primary: '#0B7310',
     },
@@ -34,55 +38,41 @@ const theme = {
     }
 };
 
-class App extends React.Component {
-    static navigationOptions = {
-        title: "Carbon Counter",
-        headerTitle: (
-            <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center', padding: 5}}>
-                <Image style={{width: 50, height: 50}} source={require('./assets/icon.png')}/>
-                <Text style={{alignSelf: 'center', color: 'white', fontWeight: '500', fontSize: 22}}>  Carbon Counter</Text>
-            </View>),
-        headerStyle: {
-            backgroundColor: '#0B7310',
-            height: 85
-        },
-        headerTitleStyle: {
-            color: 'white',
-            fontWeight: '500',
-            flex: 1
-        }
-    };
-
+export default class App extends React.Component {
     render() {
-        return (
-            <ThemeProvider theme={theme}>
-                <ScrollView>
-                    <StatusBar barStyle="light-content"/>
-                    <Card>
-                        <Text style={{fontWeight: '500', fontSize: 18}}>Carbon Counter</Text>
-                        <Text style={{marginBottom: 10}}>
-                           This will ask you a few questions, calculate your carbon emissions, and give you steps on how you can reduce it.
-                        </Text>
-                        <Button
-                            icon={ <Icon name="arrow-forward" size={20} color="white" iconStyle={{marginTop: 2}}/> }
-                            iconRight
-                            buttonStyle={{marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                            title='OPEN '/>
-                    </Card>
-                    {/*<View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>*/}
-                    {/*    <Button title="Test"/>*/}
-                    {/*    <Slider style={{width: 300}}/>*/}
-                    {/*</View>*/}
-                </ScrollView>
-            </ThemeProvider>
-        );
+       return (
+          <SafeAreaView style={{ flex: 1 }}>
+              <ThemeProvider theme={global.theme}>
+                  <AppContainer/>
+              </ThemeProvider>
+          </SafeAreaView>
+       );
     }
 }
 
-const AppNavigator = createStackNavigator({
-    Home: {
-        screen: App,
+const AppNavigator = createStackNavigator(
+    {
+        Home: Home,
+        Questions: Questions
     },
-}, {headerLayoutPreset: 'center'});
+    {
+        initialRouteName: 'Home',
+        headerLayoutPreset: 'center',
+        transitionConfig: () => ({
+            screenInterpolator: StackViewStyleInterpolator.forHorizontal
+        }),
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#0B7310',
+            },
+            headerTitleStyle: {
+                color: 'white',
+                fontWeight: '500',
+                flex: 1,
+            },
+            headerTintColor: '#ffffff'
+        },
+    },
+);
 
-export default createAppContainer(AppNavigator);
+const AppContainer = createAppContainer(AppNavigator);
