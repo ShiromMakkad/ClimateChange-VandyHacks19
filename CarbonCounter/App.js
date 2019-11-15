@@ -1,10 +1,9 @@
 import React from 'react';
-import {StatusBar, ScrollView, Platform} from 'react-native';
-import {Button, Text, ThemeProvider, Card, Icon} from 'react-native-elements';
+import {StatusBar, Platform, View} from 'react-native';
+import {ThemeProvider} from 'react-native-elements';
 import {createAppContainer, SafeAreaView} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {StackViewStyleInterpolator} from 'react-navigation-stack'
-import Navigation from "./App/components/Navigation";
 import Home from "./App/Home";
 import Questions from "./App/Questions";
 import Results from "./App/Results";
@@ -39,11 +38,19 @@ global.theme = {
     }
 };
 
+//Also see the android status bar in app.json 
+const ColoredStatusBar = ({backgroundColor, ...props}) => (
+    <View style={[{height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight}, { backgroundColor }]}>
+        <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+);
+
 export default class App extends React.Component {
     render() {
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1}} forceInset={{top: 'never'}}>
                 <ThemeProvider theme={global.theme}>
+                    <ColoredStatusBar backgroundColor={global.theme.colors.primary} barStyle="light-content" />
                     <AppContainer/>
                 </ThemeProvider>
             </SafeAreaView>

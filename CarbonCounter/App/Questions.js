@@ -21,7 +21,7 @@ export default class Questions extends React.Component {
     };
 
     _next = function (questions, questionNumber) {
-        questions[questionNumber - 1].value = 1;
+        questions[questionNumber - 1].value = this.state.sliderValue;
         this.props.navigation.push(questions.length === questionNumber ? 'Results' : 'Questions', questions.length === questionNumber ? {questions: questions} : {
             questions: questions,
             questionNumber: questionNumber + 1
@@ -52,7 +52,7 @@ export default class Questions extends React.Component {
                         iconRight
                         buttonStyle={{marginLeft: 0, marginRight: 0, width: 320, marginTop: 60}}
                         title='NEXT '
-                        onPress={() => this._next(questions, questionNumber)}
+                        onPress={(value) => this._next(questions, questionNumber)}
                     />
                 </View>
                 <View style={{
