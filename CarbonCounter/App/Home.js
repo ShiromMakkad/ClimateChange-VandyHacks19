@@ -50,7 +50,10 @@ export default class Home extends React.Component {
                         iconRight
                         buttonStyle={{marginLeft: 0, marginRight: 0, marginBottom: 0}}
                         title='OPEN '
-                        onPress={() => this.props.navigation.navigate('Questions', { questions: this.state.questions, questionNumber: 1 })}
+                        onPress={() => this.props.navigation.navigate('Questions', {
+                            questions: this.state.questions,
+                            questionNumber: 1
+                        })}
                     />
                 </Card>
             </ScrollView>

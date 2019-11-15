@@ -9,12 +9,13 @@ export default class Results extends React.Component {
         const questions = this.props.navigation.state.params.questions;
         let carbonOutput = 0;
 
-        for(let i = 0; i < questions.length; i++) {
+        for (let i = 0; i < questions.length; i++) {
             carbonOutput += questions[i].value;
         }
 
         console.log(carbonOutput);
     }
+
     static navigationOptions = {
         title: "Results",
     };
