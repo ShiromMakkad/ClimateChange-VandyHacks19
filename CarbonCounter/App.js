@@ -1,12 +1,13 @@
 import React from 'react';
-import {StatusBar, ScrollView, Platform } from 'react-native';
-import {Button, Text, ThemeProvider, Card, Icon } from 'react-native-elements';
-import {createAppContainer, SafeAreaView } from 'react-navigation';
+import {StatusBar, ScrollView, Platform} from 'react-native';
+import {Button, Text, ThemeProvider, Card, Icon} from 'react-native-elements';
+import {createAppContainer, SafeAreaView} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import { StackViewStyleInterpolator } from 'react-navigation-stack'
+import {StackViewStyleInterpolator} from 'react-navigation-stack'
 import Navigation from "./App/components/Navigation";
 import Home from "./App/Home";
 import Questions from "./App/Questions";
+import Results from "./App/Results";
 
 if (Platform.OS === 'android') {
     SafeAreaView.setStatusBarHeight(0);
@@ -40,20 +41,21 @@ global.theme = {
 
 export default class App extends React.Component {
     render() {
-       return (
-          <SafeAreaView style={{ flex: 1 }}>
-              <ThemeProvider theme={global.theme}>
-                  <AppContainer/>
-              </ThemeProvider>
-          </SafeAreaView>
-       );
+        return (
+            <SafeAreaView style={{flex: 1}}>
+                <ThemeProvider theme={global.theme}>
+                    <AppContainer/>
+                </ThemeProvider>
+            </SafeAreaView>
+        );
     }
 }
 
 const AppNavigator = createStackNavigator(
     {
         Home: Home,
-        Questions: Questions
+        Questions: Questions,
+        Results: Results
     },
     {
         initialRouteName: 'Home',
