@@ -1,10 +1,15 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-elements';
+import {diagonalScale} from "./Utilites/Scaling";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+    listenOrientationChange,
+    removeOrientationListener
+} from 'react-native-responsive-screen';
 
 export default class Results extends React.Component {
-    ;
-
     constructor(props) {
         super(props);
 
@@ -16,18 +21,31 @@ export default class Results extends React.Component {
         }
     }
 
+    componentDidMount() {
+        listenOrientationChange(this);
+    }
+
+    componentWillUnMount() {
+        removeOrientationListener();
+    }
+
     static navigationOptions = {
         title: "Results",
     };
 
     render() {
         return (
-            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', marginBottom: 400}}>
-                <Text style={{fontSize: 30, marginTop: 230}}>Your carbon output:</Text>
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 20}}>
-                    <Text style={{fontSize: 40, fontWeight: 'bold'}}>{this.carbonOutput}</Text>
-                    <Text style={{fontSize: 20}}>Parts Per Million</Text>
-                </View>
+            <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: hp('15%')
+            }}>
+                <Text style={{fontSize: diagonalScale(3)}}>Your carbon output:</Text>
+                <View style={{height: hp('1%')}}/>
+                <Text style={{fontSize: diagonalScale(4), fontWeight: 'bold'}}>{this.carbonOutput}</Text>
+                <Text style={{fontSize: diagonalScale(2)}}>Parts Per Million</Text>
             </View>
         )
     }

@@ -24,11 +24,14 @@ global.theme = {
             width: 25,
             height: 25,
             borderRadius: 25 / 2,
-            padding: 9
+        },
+        thumbTouchSize: {
+            width: 50,
+            height: 50,
         },
         trackStyle: {
-            height: 6,
-            borderRadius: 25 / 2
+            height: 10,
+            borderRadius: 10 / 2
         }
     },
     Card: {
@@ -38,9 +41,9 @@ global.theme = {
     }
 };
 
-//Also see the android status bar in app.json 
+//Also see the android status bar in app.json
 const ColoredStatusBar = ({backgroundColor, ...props}) => (
-    <View style={[{height: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight}, { backgroundColor }]}>
+    <View style={[{height: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight}, {backgroundColor}]}>
         <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
 );
@@ -50,7 +53,7 @@ export default class App extends React.Component {
         return (
             <SafeAreaView style={{flex: 1}} forceInset={{top: 'never'}}>
                 <ThemeProvider theme={global.theme}>
-                    <ColoredStatusBar backgroundColor={global.theme.colors.primary} barStyle="light-content" />
+                    <ColoredStatusBar backgroundColor={global.theme.colors.primary} barStyle="light-content"/>
                     <AppContainer/>
                 </ThemeProvider>
             </SafeAreaView>
@@ -77,7 +80,6 @@ const AppNavigator = createStackNavigator(
             headerTitleStyle: {
                 color: 'white',
                 fontWeight: '500',
-                flex: 1,
             },
             headerTintColor: '#ffffff'
         },

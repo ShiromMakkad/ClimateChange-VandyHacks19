@@ -1,13 +1,27 @@
 import React from 'react';
 import {View} from 'react-native';
-import {ThemeProvider, Slider, Button, Icon, Text} from 'react-native-elements';
-import {NavigationActions} from 'react-navigation';
+import {Slider, Button, Icon, Text} from 'react-native-elements';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+    listenOrientationChange,
+    removeOrientationListener
+} from 'react-native-responsive-screen';
+import {diagonalScale} from "./Utilites/Scaling";
 
 export default class Questions extends React.Component {
     constructor(props) {
         super(props);
 
         this._next = this._next.bind(this);
+    }
+
+    componentDidMount() {
+        listenOrientationChange(this);
+    }
+
+    componentWillUnMount() {
+        removeOrientationListener();
     }
 
     static navigationOptions = ({navigation}) => {
@@ -32,44 +46,50 @@ export default class Questions extends React.Component {
         let questions = this.props.navigation.state.params.questions; //The question's value gets updated and passed to the next screen.
         const questionNumber = this.props.navigation.state.params.questionNumber;
         return (
-            <View style={{flex: 1, flexDirection: 'column'}}>
-                <View style={{flex: 1, alignItems: 'center', marginTop: 90}}>
-                    <Text style={{
-                        fontSize: 25,
-                        textAlign: 'center',
-                        marginHorizontal: 20
-                    }}>{questions[questionNumber - 1].question}</Text>
-                    <Text style={{fontSize: 40, fontWeight: 'bold', marginTop: 20}}>{this.state.sliderValue}</Text>
-                </View>
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginBottom: 70}}>
-                    <Slider style={{width: 300}}
-                            maximumValue={questions[questionNumber - 1].max}
-                            minimumValue={questions[questionNumber - 1].min}
-                            step={1} value={this.state.sliderValue}
-                            onValueChange={(sliderValue) => this.setState({sliderValue})}/>
-                    <Button
-                        icon={<Icon name="arrow-forward" size={20} color="white" iconStyle={{marginTop: 2}}/>}
-                        iconRight
-                        buttonStyle={{marginLeft: 0, marginRight: 0, width: 320, marginTop: 60}}
-                        title='NEXT '
-                        onPress={(value) => this._next(questions, questionNumber)}
-                    />
+            <View style={{flex: 1}}>
+                <View style={{justifyContent: 'space-evenly', flex: 1, marginHorizontal: wp('7%')}}>
+                    <View style={{alignItems: 'center'}}>
+                        <Text style={{
+                            fontSize: diagonalScale(3.5),
+                            textAlign: 'center',
+                        }}>{questions[questionNumber - 1].question}</Text>
+                        <View style={{height: hp('2%')}}/>
+                        <Text style={{
+                            fontSize: diagonalScale(4.5),
+                            fontWeight: 'bold'
+                        }}>{this.state.sliderValue}</Text>
+                    </View>
+                    <View style={{alignItems: 'center'}}>
+                        <Slider style={{alignSelf: 'stretch'}}
+                                maximumValue={questions[questionNumber - 1].max}
+                                minimumValue={questions[questionNumber - 1].min}
+                                step={1} value={this.state.sliderValue}
+                                onValueChange={(sliderValue) => this.setState({sliderValue})}/>
+                        <View style={{height: hp('2%')}}/>
+                        <Button
+                            icon={<Icon name="arrow-forward" color="white"/>}
+                            iconRight
+                            buttonStyle={{width: wp('70%')}}
+                            title='NEXT '
+                            onPress={(value) => this._next(questions, questionNumber)}
+                        />
+                    </View>
                 </View>
                 <View style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    paddingVertical: 6,
+                    paddingVertical: 4,
+                    justifyContent: 'space-evenly',
+                    width: '100%',
                     backgroundColor: global.theme.colors.primary
                 }}>
                     <Slider disabled={true} minimumTrackTintColor='#b3b3b3' maximumTrackTintColor='#ffffff'
                             maximumValue={questions.length} minimumValue={0} step={1}
                             value={parseInt(questionNumber, 10)}
-                            style={{width: 300}} trackStyle={{height: 14, borderRadius: 14 / 2}}
+                            style={{width: wp('80%')}} trackStyle={{height: 14, borderRadius: 14 / 2}}
                             thumbStyle={{opacity: 0}}/>
                     <Text style={{
                         color: 'white',
-                        marginLeft: 15,
                         fontSize: 16,
                         fontWeight: '400'
                     }}>{questionNumber + " / " + questions.length}</Text>
