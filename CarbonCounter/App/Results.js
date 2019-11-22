@@ -18,7 +18,7 @@ export default class Results extends React.Component {
 
         for (let i = 0; i < questions.length; i++) {
             this.carbonOutput += questions[i].value;
-        }
+        } // change this 
     }
 
     componentDidMount() {
